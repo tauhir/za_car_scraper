@@ -1,0 +1,17 @@
+class CreateVehicles < ActiveRecord::Migration[6.0]
+  def change
+    create_table :vehicles do |t|
+      t.string :title
+      t.string :stock_type
+      t.string :exterior_color
+      t.string :interior_color
+      t.string :transmission
+      t.string :fuel_type
+      t.string :year
+      t.integer :price
+      t.integer :miles
+
+      t.timestamps
+    end
+  end
+end
