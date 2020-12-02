@@ -72,7 +72,7 @@ class VehiclesController < ApplicationController
   rescue StandardError => e
     flash.now[:alert] = "Error: #{e}"
   end
-
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_vehicle
@@ -81,6 +81,6 @@ class VehiclesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def vehicle_params
-      params.require(:vehicle).permit(:title, :stock_type, :exterior_color, :interior_color, :transmission, :fuel_type, :year, :price, :miles)
+      params.require(:vehicle).permit(:title, :color, :transmission, :fuel_type, :make, :model, :url, :year, :price, :miles)
     end
 end

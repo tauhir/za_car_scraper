@@ -1,4 +1,5 @@
 <%= button_to 'Scrape', scrape_vehicles_path %>
+
 <p id="notice"><%= notice %></p>
 
 <h1>Vehicles</h1>
@@ -7,11 +8,12 @@
   <thead>
     <tr>
       <th>Title</th>
-      <th>Stock type</th>
-      <th>Exterior color</th>
-      <th>Interior color</th>
+      <th>Color</th>
       <th>Transmission</th>
       <th>Fuel type</th>
+      <th>Make</th>
+      <th>Model</th>
+      <th>Url</th>
       <th>Year</th>
       <th>Price</th>
       <th>Miles</th>
@@ -23,11 +25,12 @@
     <% @vehicles.each do |vehicle| %>
       <tr>
         <td><%= vehicle.title %></td>
-        <td><%= vehicle.stock_type %></td>
-        <td><%= vehicle.exterior_color %></td>
-        <td><%= vehicle.interior_color %></td>
+        <td><%= vehicle.color %></td>
         <td><%= vehicle.transmission %></td>
         <td><%= vehicle.fuel_type %></td>
+        <td><%= vehicle.make %></td>
+        <td><%= vehicle.model %></td>
+        <td><%= vehicle.url %></td>
         <td><%= vehicle.year %></td>
         <td><%= vehicle.price %></td>
         <td><%= vehicle.miles %></td>

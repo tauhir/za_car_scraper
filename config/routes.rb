@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :vehicles
   resources :vehicles do
     match '/scrape', to: 'vehicles#scrape', via: :post, on: :collection
   end

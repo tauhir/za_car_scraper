@@ -17,18 +17,8 @@
   </div>
 
   <div class="field">
-    <%= form.label :stock_type %>
-    <%= form.text_field :stock_type %>
-  </div>
-
-  <div class="field">
-    <%= form.label :exterior_color %>
-    <%= form.text_field :exterior_color %>
-  </div>
-
-  <div class="field">
-    <%= form.label :interior_color %>
-    <%= form.text_field :interior_color %>
+    <%= form.label :color %>
+    <%= form.text_field :color %>
   </div>
 
   <div class="field">
@@ -42,8 +32,23 @@
   </div>
 
   <div class="field">
+    <%= form.label :make %>
+    <%= form.text_field :make %>
+  </div>
+
+  <div class="field">
+    <%= form.label :model %>
+    <%= form.text_field :model %>
+  </div>
+
+  <div class="field">
+    <%= form.label :url %>
+    <%= form.text_field :url %>
+  </div>
+
+  <div class="field">
     <%= form.label :year %>
-    <%= form.text_field :year %>
+    <%= form.number_field :year %>
   </div>
 
   <div class="field">
