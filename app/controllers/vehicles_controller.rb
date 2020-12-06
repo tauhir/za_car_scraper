@@ -62,15 +62,15 @@ class VehiclesController < ApplicationController
   end
 
   def scrape
-    url = 'https://www.cars.co.za/searchVehicle.php?new_or_used=&make_model=Volvo[All]'
+    url = 'https://www.cars.co.za/searchVehicle.php?'
     response = VehiclesSpider.process(url)
     if response[:status] == :completed && response[:error].nil?
       flash.now[:notice] = "Successfully scraped url"
     else
       flash.now[:alert] = response[:error]
     end
-  rescue StandardError => e
-    flash.now[:alert] = "Error: #{e}"
+    rescue StandardError => e
+      flash.now[:alert] = "Error: #{e}"
   end
   
   private

@@ -22,7 +22,7 @@
   </thead>
 
   <tbody>
-    <% @vehicles.each do |vehicle| %>
+    <% @vehicles.first(10).each do |vehicle| %>
       <tr>
         <td><%= vehicle.title %></td>
         <td><%= vehicle.color %></td>
