@@ -1,5 +1,5 @@
-class VehiclesFilterSpider < Kimurai::Base
-    @name = 'vehicles_filter_spider'
+class VehicleFilterSpider < Kimurai::Base
+    @name = 'vehicle_filter_spider'
     @engine = :mechanize
   
     def self.process(url)
@@ -8,7 +8,9 @@ class VehiclesFilterSpider < Kimurai::Base
     end
 
     def parse(response, url:, data: {})
-      response.xpath("//div[@class='item clearfix vehicle-list__item']").each do |vehicle|
+      browser.click_link "Make & Model"
+      response.xpath("//div[@class='picker-list picker-tree search-box__picker-list']").each do |make|
+        byebug
           request_to :parse_individual, url: absolute_url(vehicle.css('a.vehicle-list__view-vehicle')[0][:href], base: url)
       end
       if next_page = response.at_xpath("//a[@class='pagination__page pagination__nav js-pagination fa fa-right-open-big']")
@@ -16,8 +18,4 @@ class VehiclesFilterSpider < Kimurai::Base
         request_to :parse, url: absolute_url(next_page[:href], base: url)
       end
     end
-
-    makes
-    body_type
-
 end
