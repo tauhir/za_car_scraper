@@ -17,5 +17,8 @@ class VehicleFilterSpider < Kimurai::Base
     body_type_list = x[names_list.find_index("Body Types")+1,(names_list.find_index("R 20 000") - names_list.find_index("Body Types"))]
     File.open("makers_list.yml", "w"){ |o| o.write(makes_list.to_yaml)  } # import current file and compare 
     File.open("body_type_list.yml", "w"){ |o| o.write(body_type_list.to_yaml)  }
+    #I'm going to get the URL for each make by clicking the button instead of doing the above.
+    # I'm going to create a table for makes and a table for body_types instead
+    # name (should be unique), url for site A, url for site B
   end
 end
