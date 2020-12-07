@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe VehiclesSpider,:vcr, type: :model do
+RSpec.describe VehiclesSpider, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"
 
   it "creates vehicles when scraping" do
