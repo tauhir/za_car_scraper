@@ -34,9 +34,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem "vcr"
   gem "webmock"
-  gem 'capybara'
-  gem 'selenium-webdriver'
-
 end
 
 group :development do
@@ -51,3 +48,6 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'kimurai'
+gem 'selenium-webdriver'
+gem 'capybara'
+gem 'webdrivers', '~> 4.0', require: false
