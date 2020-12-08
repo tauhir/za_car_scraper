@@ -14,15 +14,15 @@ class VehicleFilterSpider < Kimurai::Base
     list = browser.find("//div[@id='make_model_button']").all("//li[@class='item']")
     x = list[0].all('//a').first.all('//span')
     names_list = x.map{|value| value.text}
-    makes_list = x[names_list.find_index("Makes")+1,(names_list.find_index("Body Types")-names_list.find_index("Makes"))]
-    body_type_list = x[names_list.find_index("Body Types")+1,(names_list.find_index("R 20 000") - names_list.find_index("Body Types"))]
+    makes_list = x[names_list.find_index("Makes")+1,(names_list.find_index("Body Types")-names_list.find_index("Makes")-1)]
+    body_type_list = x[names_list.find_index("Body Types")+1,(names_list.find_index("R 20 000") - names_list.find_index("Body Types")-1)]
     browser.find("//div[@id='make_model_button']").click
     makes_list.each do |maker|
 
       Maker.create(
         name: maker.text,
 
-        cars_coza: browser.find(maker.path).all(".//a").first(".//a")[:href]
+        cars_coza: browser.find(maker.path).first(".//a")[:href]
       )
     end
     byebug
