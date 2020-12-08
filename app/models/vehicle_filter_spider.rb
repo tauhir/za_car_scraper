@@ -25,12 +25,13 @@ class VehicleFilterSpider < Kimurai::Base
         cars_coza: browser.find(maker.path).first(".//a")[:href]
       )
     end
-    byebug
-    File.open("makers_list.yml", "w"){ |o| o.write(makes_list.to_yaml)  } # import current file and compare 
-    File.open("body_type_list.yml", "w"){ |o| o.write(body_type_list.to_yaml)  }
-    #I'm going to get the URL for each make by clicking the button instead of doing the above.
-    # I'm going to create a table for makes and a table for body_types instead
-    # name (should be unique), url for site A, url for site B
-    # currently I'm getting the span and not the a element.  path="/HTML/BODY[1]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/FORM[1]/DIV[2]/DIV[3]/A[1]">
+    body_type_list.each do |body|
+
+      BodyType.create(
+        name: body.text,
+
+        cars_coza: browser.find(body.path).first(".//a")[:href]
+      )
+    end 
   end
 end
