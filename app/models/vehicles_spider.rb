@@ -1,13 +1,17 @@
 class VehiclesSpider < Kimurai::Base
     @name = 'vehicles_spider'
     @engine = :mechanize
-  
-    def self.process(url)
-      @start_urls = [url]
-      self.crawl!
-    end
 
+    def self.process(make)
+      @maker = make
+      @name = make
+      @start_urls = [make.cars_coza]
+      self.crawl!
+      
+    end
+    
     def parse(response, url:, data: {})
+    #logger.progname.id
       response.xpath("//div[@class='item clearfix vehicle-list__item']").each do |vehicle|
           request_to :parse_individual, url: absolute_url(vehicle.css('a.vehicle-list__view-vehicle')[0][:href], base: url)
       end
@@ -45,6 +49,7 @@ class VehiclesSpider < Kimurai::Base
       # item[:reference]  = get_next_in_array(table_items, "Reference")&.squish
       # item[:options]  = get_next_in_array(table_items, "Options")&.squish
       item[:url] = url
+      item[:maker_id] = logger.progname.id #this isn't great
       Vehicle.where(item).first_or_create
     end
   end

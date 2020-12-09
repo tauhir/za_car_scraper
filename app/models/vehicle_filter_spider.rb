@@ -10,7 +10,6 @@ class VehicleFilterSpider < Kimurai::Base
   end
  
   def parse(response, url:, data: {})
-    
     list = browser.find("//div[@id='make_model_button']").all("//li[@class='item']")
     x = list[0].all('//a').first.all('//span')
     names_list = x.map{|value| value.text}
@@ -32,6 +31,7 @@ class VehicleFilterSpider < Kimurai::Base
 
         cars_coza: browser.find(body.path).first(".//a")[:href]
       )
-    end 
+    end
+ 
   end
 end
