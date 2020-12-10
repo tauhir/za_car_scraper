@@ -2,9 +2,9 @@ class VehiclesSpider < Kimurai::Base
     @name = 'vehicles_spider'
     @engine = :mechanize
 
-    def self.process(make)
-      @maker = make
-      @name = make
+    def self.process(filter)
+      @name = filter # using the name field to pass this on because I'm not sure whats going on in crawl method
+      
       @start_urls = [make.cars_coza]
       self.crawl!
       
@@ -28,6 +28,7 @@ class VehiclesSpider < Kimurai::Base
     end
 
     def parse_page(vehicle,url)
+      byebug
       item = {}
       item[:title]      = vehicle.css('h3.vehicle-view__description-heading')&.text&.squish
       item[:price] = vehicle.css('div.vehicle-view__price')&.text&.squish&.delete('^0-9').to_i
@@ -49,7 +50,7 @@ class VehiclesSpider < Kimurai::Base
       # item[:reference]  = get_next_in_array(table_items, "Reference")&.squish
       # item[:options]  = get_next_in_array(table_items, "Options")&.squish
       item[:url] = url
-      item[:maker_id] = logger.progname.id #this isn't great
+      item[:maker_id] = logger.progname.id if progname.class == Maker.new.class
       Vehicle.where(item).first_or_create
     end
   end
