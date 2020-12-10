@@ -51,3 +51,4 @@ gem 'kimurai'
 gem 'selenium-webdriver'
 gem 'capybara'
 gem 'webdrivers', '~> 4.0', require: false
+gem 'kaminari'

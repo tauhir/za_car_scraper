@@ -12,7 +12,7 @@
       <th>Transmission</th>
       <th>Fuel type</th>
       <th>Make</th>
-      <th>Model</th>
+      <th>Body Type</th>
       <th>Url</th>
       <th>Year</th>
       <th>Price</th>
@@ -28,8 +28,8 @@
         <td><%= vehicle.color %></td>
         <td><%= vehicle.transmission %></td>
         <td><%= vehicle.fuel_type %></td>
-        <td><%= vehicle.make %></td>
-        <td><%= vehicle.model %></td>
+        <td><%= vehicle.maker_id %></td>
+        <td><%= vehicle.body_type_id %></td>
         <td><%= vehicle.url %></td>
         <td><%= vehicle.year %></td>
         <td><%= vehicle.price %></td>
@@ -41,7 +41,7 @@
     <% end %>
   </tbody>
 </table>
+<%= paginate @vehicles %>
 
 <br>
 
-<%= link_to 'New Vehicle', new_vehicle_path %>

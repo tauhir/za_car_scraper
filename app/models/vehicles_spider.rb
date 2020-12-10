@@ -29,7 +29,7 @@ class VehiclesSpider < Kimurai::Base
 
     def parse_page(vehicle,url)
       item = {}
-      item[:title]      = vehicle.css('h3.vehicle-view__description-heading')&.text&.squish
+      item[:title]      = vehicle.css('h1.heading_size_xl')&.text&.squish
       item[:price] = vehicle.css('div.vehicle-view__price')&.text&.squish&.delete('^0-9').to_i
       # data is stored in tables so we need to extract it
       table_items = []
@@ -51,7 +51,7 @@ class VehiclesSpider < Kimurai::Base
       item[:url] = url
       vehicle = Vehicle.where(item).first_or_create
       vehicle[:body_type_id] = logger.progname.id if logger.progname.class == BodyType.new.class
-      vehicle[:body_type_id] = logger.progname.id if logger.progname.class == Maker.new.class
+      vehicle[:maker_id] = logger.progname.id if logger.progname.class == Maker.new.class
       vehicle.save
     end
   end
