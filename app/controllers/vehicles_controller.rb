@@ -74,17 +74,18 @@ class VehiclesController < ApplicationController
   end
 
   def scrape
-    Maker.all.each do |make|
-      response = VehiclesSpider.process(make)
-      if response[:status] == :completed && response[:error].nil?
-        flash.now[:notice] = "Successfully scraped url"
-      else
-        flash.now[:alert] = response[:error]
-      end
+    # Maker.all.each do |make|
+    #   response = VehiclesSpider.process(make)
+    #   if response[:status] == :completed && response[:error].nil?
+    #     flash.now[:notice] = "Successfully scraped url"
+    #   else
+    #     flash.now[:alert] = response[:error]
+    #   end
       # rescue StandardError => e
       #   flash.now[:alert] = "Error: #{e}"
-    end
+    # end
     BodyType.all.each do |body|
+      
       response = VehiclesSpider.process(body)
       if response[:status] == :completed && response[:error].nil?
         flash.now[:notice] = "Successfully scraped url"

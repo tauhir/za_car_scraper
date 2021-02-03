@@ -3,6 +3,7 @@ class VehiclesSpider < Kimurai::Base
     @engine = :mechanize
 
     def self.process(filter)
+      byebug
       @name = filter # using the name field to pass this on because I'm not sure whats going on in crawl method
       
       @start_urls = [filter.cars_coza]
@@ -53,6 +54,7 @@ class VehiclesSpider < Kimurai::Base
       vehicle[:body_type_id] = logger.progname.id if logger.progname.class == BodyType.new.class
       vehicle[:maker_id] = logger.progname.id if logger.progname.class == Maker.new.class
       vehicle.save
+      byebug
     end
   end
 
