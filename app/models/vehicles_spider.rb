@@ -3,7 +3,6 @@ class VehiclesSpider < Kimurai::Base
     @engine = :mechanize
 
     def self.process(filter)
-      byebug
       @name = filter # using the name field to pass this on because I'm not sure whats going on in crawl method
       
       @start_urls = [filter.cars_coza]
@@ -17,7 +16,7 @@ class VehiclesSpider < Kimurai::Base
           request_to :parse_individual, url: absolute_url(vehicle.css('a.vehicle-list__view-vehicle')[0][:href], base: url)
       end
       if next_page = response.at_xpath("//a[@class='pagination__page pagination__nav js-pagination fa fa-right-open-big']")
-        return if next_page[:href][-1] == "3" # limits the pages to page 3 for testing and dev while I implement the cassettes gem
+        return if next_page[:href][-1] == "2" # limits the pages to page 3 for testing and dev while I implement the cassettes gem
         request_to :parse, url: absolute_url(next_page[:href], base: url)
       end
     end
@@ -32,6 +31,7 @@ class VehiclesSpider < Kimurai::Base
       item = {}
       item[:title]      = vehicle.css('h1.heading_size_xl')&.text&.squish
       item[:price] = vehicle.css('div.vehicle-view__price')&.text&.squish&.delete('^0-9').to_i
+      .323333
       # data is stored in tables so we need to extract it
       table_items = []
       table = vehicle.at('.vehicle-view__section')
@@ -49,12 +49,13 @@ class VehiclesSpider < Kimurai::Base
       # item[:condition]  = get_next_in_array(table_items, "Condition")&.squish TODO
       # item[:reference]  = get_next_in_array(table_items, "Reference")&.squish
       # item[:options]  = get_next_in_array(table_items, "Options")&.squish
+      item[:img_url]  = vehicle.css('img.gallery__slider-image').first.attributes["src"].value
+      
       item[:url] = url
       vehicle = Vehicle.where(item).first_or_create
       vehicle[:body_type_id] = logger.progname.id if logger.progname.class == BodyType.new.class
       vehicle[:maker_id] = logger.progname.id if logger.progname.class == Maker.new.class
       vehicle.save
-      byebug
     end
   end
 

@@ -61,9 +61,9 @@ class VehiclesController < ApplicationController
     end
   end
 
-  def dape
+  def scrape_filters
     url = 'https://www.cars.co.za/searchVehicle.php?'
-    response = VehiclesSpider.process(url)
+    response = VehiclesSpiderFilter.process(url)
     if response[:status] == :completed && response[:error].nil?
       flash.now[:notice] = "Successfully scraped url"
     else
@@ -74,16 +74,16 @@ class VehiclesController < ApplicationController
   end
 
   def scrape
-    # Maker.all.each do |make|
-    #   response = VehiclesSpider.process(make)
-    #   if response[:status] == :completed && response[:error].nil?
-    #     flash.now[:notice] = "Successfully scraped url"
-    #   else
-    #     flash.now[:alert] = response[:error]
-    #   end
-      # rescue StandardError => e
-      #   flash.now[:alert] = "Error: #{e}"
-    # end
+    Maker.all.each do |make|
+      response = VehiclesSpider.process(make)
+      if response[:status] == :completed && response[:error].nil?
+        flash.now[:notice] = "Successfully scraped url"
+      else
+        flash.now[:alert] = response[:error]
+      end
+      rescue StandardError => e
+        flash.now[:alert] = "Error: #{e}"
+    end
     BodyType.all.each do |body|
       
       response = VehiclesSpider.process(body)
@@ -92,8 +92,8 @@ class VehiclesController < ApplicationController
       else
         flash.now[:alert] = response[:error]
       end
-      # rescue StandardError => e
-      #   flash.now[:alert] = "Error: #{e}"
+      rescue StandardError => e
+        flash.now[:alert] = "Error: #{e}"
     end
   end
   
